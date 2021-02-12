@@ -62,18 +62,39 @@ const connectorCofigure = (connector) => {
   }).catch(() => {
     console.error("RegisterLocalSpeakerEventListener Failed");
   });
+
+  getToken()
+  .then(data => data.json())
+  .then(token => connectorConnect(connector, token.token));
 };
 
-const getToken = async (userName) => {
-  const url = 'https//localhost:5000/'
-  const options = {
-    headers: {
-      user: userName,
-    },
-    method: 'GET',
-  };
+const connectorConnect = (connector, token) => {
+  console.log('Token', token);
+  // Connect to the room
+  connector.Connect({
+    host: "prod.vidyo.io",
+    // token: 'cHJvdmlzaW9uAHVzZXIxQDg1NjI0Zi52aWR5by5pbwA2Mzc4MDQ4OTIzMQAAMWM1MmU2NDdjYjJlNWU5OTUyMmY3MDc4ODJiMjA3YzFiNmU2OTUxODM3ZWVhMzFmOWE4ZDUxM2M2ODIyNGY2YmE4Y2RkYzEzODUxMGYzZGY0OTE0MjZjMTVlNWVlYWQ3', //Generated Token
+    token,
+    displayName: "user1", //User Name
+    resourceId: "demoroom", //Conference Name
+    onSuccess: () => console.log("Sucessfully connected"),
+    onFailure: (reason) => console.log("Error while connecting ", reason),
+    onDisconnected: (reason) => console.log("Disconnected ", reason),     
+  });
+};
 
-  const resp = fetch(url, options);
+const getToken = async (userName = 'user1') => {
+  const tokenurl = 'https://localhost:3000/'
+  // const options = {
+  //   headers: {
+  //     user: userName,
+  //   },
+  //   method: 'GET',
+  // };
 
+  // console.log(tokenurl)
+  // const resp = fetch(tokenurl, options);
+  const resp = fetch(tokenurl);
+  console.log(resp);
   return resp;
 };
