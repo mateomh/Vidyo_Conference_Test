@@ -1,0 +1,13 @@
+body {
+  background-color: aqua;
+}
+
+.renderer {
+  position: absolute;
+  top: 41px;
+  left: 3px;
+  bottom: -23px;
+  z-index: 99;
+  height: 300px;
+  width: 300px;
+}
