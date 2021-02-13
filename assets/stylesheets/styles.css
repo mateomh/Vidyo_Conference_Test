@@ -57,6 +57,7 @@ body {
   width: 100%;
   font-size: 2vh;
   font-weight: bold;
+  outline: none;
 }
 
 .button {
@@ -69,6 +70,17 @@ body {
   color: white;
   background-color: #8BC400;
   cursor: pointer;
+  box-shadow: 1vh 1vh 2vh black;
+  outline: none;
+}
+
+.button:hover {
+  background-color: #001871;
+}
+
+.button:active {
+  transform: scale(0.95);
+  background-color: #8BC400;
 }
 
 .renderer {
