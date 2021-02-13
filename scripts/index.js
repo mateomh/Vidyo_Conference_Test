@@ -1,5 +1,3 @@
-/*jshint esversion: 6 */
-
 function onVidyoClientLoaded(status){
   const { state } = status;
 
@@ -63,20 +61,33 @@ const connectorCofigure = (connector) => {
     console.error("RegisterLocalSpeakerEventListener Failed");
   });
 
-  getToken()
+  let userName = document.getElementById('username').value;
+  if (userName === '') {
+    userName = 'Guest';
+  }
+  getToken(userName)
   .then(data => data.json())
   .then(token => connectorConnect(connector, token.token));
 };
 
 const connectorConnect = (connector, token) => {
-  console.log('Token', token);
+  let userName = document.getElementById('username').value;
+  let meetingName = document.getElementById('resource').value;
+
+  if (userName === '') {
+    userName = 'Guest';
+  }
+
+  if (meetingName === '') {
+    meetingName = 'Default';
+  }
+  
   // Connect to the room
   connector.Connect({
     host: "prod.vidyo.io",
-    // token: 'cHJvdmlzaW9uAHVzZXIxQDg1NjI0Zi52aWR5by5pbwA2Mzc4MDQ4OTIzMQAAMWM1MmU2NDdjYjJlNWU5OTUyMmY3MDc4ODJiMjA3YzFiNmU2OTUxODM3ZWVhMzFmOWE4ZDUxM2M2ODIyNGY2YmE4Y2RkYzEzODUxMGYzZGY0OTE0MjZjMTVlNWVlYWQ3', //Generated Token
     token,
-    displayName: "user1", //User Name
-    resourceId: "demoroom", //Conference Name
+    displayName: userName, //User Name
+    resourceId: meetingName, //Conference Name
     onSuccess: () => console.log("Sucessfully connected"),
     onFailure: (reason) => console.log("Error while connecting ", reason),
     onDisconnected: (reason) => console.log("Disconnected ", reason),     
@@ -85,16 +96,24 @@ const connectorConnect = (connector, token) => {
 
 const getToken = async (userName = 'user1') => {
   const tokenurl = 'https://localhost:3000/'
-  // const options = {
-  //   headers: {
-  //     user: userName,
-  //   },
-  //   method: 'GET',
-  // };
+  const options = {
+    headers: {
+      'user': userName,
+      'Content-Type': 'application/json',
+    },
+    method: 'GET',
+    mode: 'cors',
+  };
 
-  // console.log(tokenurl)
-  // const resp = fetch(tokenurl, options);
-  const resp = fetch(tokenurl);
-  console.log(resp);
+  const resp = await fetch(tokenurl, options);
+  // const resp = fetch(tokenurl);
   return resp;
+};
+
+const enterMeetingClick = () => {
+  const body = document.getElementsByTagName('body')[0];
+  const script = document.createElement('script');
+  // Loading the SDK
+  script.src = 'https://static.vidyo.io/latest/javascript/VidyoClient/VidyoClient.js?onload=onVidyoClientLoaded&webrtc=true&plugin=false'
+  body.appendChild(script);
 };

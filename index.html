@@ -7,17 +7,43 @@
 
   <title>Visual Contact Exercise</title>
   <link rel="stylesheet" href="./assets/stylesheets/styles.css">
+
+   <!-- Loading local scripts -->
+   <script src="./scripts/index.js"></script>
 </head>
 <body>
+  <div class="sidebar">
+    <img
+      class="logo"
+      src="./assets/images/logo.png"
+      onclick="parent.open('http://www.visualcontact.com.co')"
+    />
+    <div class="meetinginfo">
+      <div>
+        <label class="label" for="username">Enter your user name</label>
+        <br><br>
+        <input
+          type="text"
+          name="username"
+          id="username"
+          placeholder="User Name"
+          class="input"
+        >
+      </div>
+      <div>
+        <label class="label" for="resource">Enter the meeting name</label>
+        <br><br>
+        <input
+          type="text"
+          name="resource"
+          id="resource"
+          placeholder="Meeting Name"
+          class="input"
+        >
+      </div>
+      <button class="button" onclick="enterMeetingClick()">Enter meeting</button>
+    </div>
+  </div>
   <div id="renderer" class="renderer"></div>
-
-  <!-- Loading local scripts -->
-  <script src="./scripts/index.js"></script>
-
-   <!-- Loading the SDK -->
-  <script
-    src="https://static.vidyo.io/latest/javascript/VidyoClient/VidyoClient.js?onload=onVidyoClientLoaded&webrtc=true&plugin=false"
-  >
-  </script>
 </body>
 </html>
