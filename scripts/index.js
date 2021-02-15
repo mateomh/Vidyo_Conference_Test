@@ -73,7 +73,7 @@ const connectorCofigure = (connector) => {
 const connectorConnect = (connector, token) => {
   let userName = document.getElementById('username').value;
   let meetingName = document.getElementById('resource').value;
-
+  console.log('Token: ', token);
   if (userName === '') {
     userName = 'Guest';
   }
