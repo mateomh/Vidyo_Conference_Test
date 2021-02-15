@@ -1,6 +1,6 @@
 ![](https://img.shields.io/badge/Microverse-blueviolet)
 
-# Tempus Time Tracker
+# Vidyo conference client
 
 > This project is a simple video chat room app that uses the [Vidyo API](https://vidyo.io/) to create and handle the rooms.
 
